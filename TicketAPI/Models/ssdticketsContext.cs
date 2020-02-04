@@ -24,14 +24,6 @@ namespace TicketAPI.Models
         public virtual DbSet<TicketPurchaseSeat> TicketPurchaseSeat { get; set; }
         public virtual DbSet<Venue> Venue { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Name=ConnectionStrings.TicketsDb");
-            }
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
