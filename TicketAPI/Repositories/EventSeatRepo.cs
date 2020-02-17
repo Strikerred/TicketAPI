@@ -38,5 +38,33 @@ namespace TicketAPI.Repositories
             response = null;
             return false;
         }
+
+        public bool TryGetByEvent(int eventId, out List<EventSeatResponse> response)
+        {
+            var target = _context.EventSeat.Where(es => es.EventId == eventId);
+
+            if (target.Any())
+            {
+                response = new List<EventSeatResponse>();
+
+                foreach (EventSeat es in target)
+                {
+                    bool isPurchased = _context.TicketPurchaseSeat.ToList().Any(tps => tps.EventSeatId == es.EventSeatId);
+                    response.Add(new EventSeatResponse
+                    {
+                        EventSeatId = es.EventSeatId,
+                        SeatId = es.SeatId,
+                        EventId = es.EventId,
+                        EventSeatPrice = es.EventSeatPrice,
+                        IsAvailable = !isPurchased
+                    });
+                }
+                return true;
+            }
+
+            // event seats not found
+            response = null;
+            return false;
+        }
     }
 }

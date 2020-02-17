@@ -31,5 +31,18 @@ namespace TicketAPI.Controllers
 
             return Ok(response);
         }
+
+        // GET /event-seat/event/{event_id}
+        // returns an array of all the event seats for an event with { event_id }
+        [HttpGet("event/{eventId:int}")]
+        public ActionResult<List<EventSeatResponse>> GetByEvent(int eventId)
+        {
+            if(!_eventSeatRepo.TryGetByEvent(eventId, out List<EventSeatResponse> response))
+            {
+                return NotFound();
+            }
+
+            return Ok(response);
+        }
     }
 }
