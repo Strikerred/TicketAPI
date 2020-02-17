@@ -20,7 +20,7 @@ namespace TicketAPI.Repositories
             return _context.Section.ToList();
         }        
 
-        public List<Seat> GetSeats(long id)
+        public List<SeatRepo> GetSeats(long id)
         {
             return _context.Seat.Where(s => s.RowId == id).ToList();
         }
