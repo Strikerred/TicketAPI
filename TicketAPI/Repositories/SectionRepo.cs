@@ -20,9 +20,9 @@ namespace TicketAPI.Repositories
             return _context.Section.ToList();
         }        
 
-        public List<SeatRepo> GetSeats(long id)
+        public Section GetSection(long id)
         {
-            return _context.Seat.Where(s => s.RowId == id).ToList();
+            return _context.Section.Where(s => s.SectionId == id).FirstOrDefault();
         }
     }
 }
