@@ -32,6 +32,7 @@ namespace TicketAPI
                 options.UseSqlServer(Configuration["ConnectionStrings:TicketsDbLocal"]));
 
             services.AddTransient<EventSeatRepo>();
+            services.AddTransient<PurchaseRepo>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
