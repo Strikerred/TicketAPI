@@ -18,11 +18,11 @@ namespace TicketAPI.Repositories
         public List<Section> GetAll()
         {
             return _context.Section.ToList();
-        }
+        }        
 
-        public Section GetSection(long id)
+        public List<Seat> GetSeats(long id)
         {
-            return _context.Section.FirstOrDefault(s => s.SectionId == id);
+            return _context.Seat.Where(s => s.RowId == id).ToList();
         }
     }
 }

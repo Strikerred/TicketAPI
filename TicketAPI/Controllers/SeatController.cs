@@ -9,27 +9,26 @@ using TicketAPI.Repositories;
 namespace TicketAPI.Controllers
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
-    [ApiController]
-    public class SectionController : Controller
+    [Route("api/[controller]/rows/section")]
+    public class SeatController : Controller
     {
         private readonly TicketsDBContext _context;
 
-        public SectionController(TicketsDBContext context)
+        public SeatController(TicketsDBContext context)
         {
             _context = context;
-        }        
+        }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetSeatByIdRow(long id)
         {
-            var sections = new SectionRepo(_context).GetAll();
+            var seat = new SeatRepo(_context).GetSeat(id);
 
-            if (sections == null || sections.Count <= 0)
+            if (seat == null)
             {
                 return NotFound();
             }
-            return new ObjectResult(sections);
-        }        
+            return new ObjectResult(seat);
+        }
     }
 }
