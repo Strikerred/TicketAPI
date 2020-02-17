@@ -20,13 +20,25 @@ namespace TicketAPI.Controllers
             _purchaseRepo = purchaseRepo;
         }
 
-
         // GET /purchase
         // returns all purchases made so far
         [HttpGet]
         public ActionResult<List<PurchaseResponse>> GetAll()
         {
             if(!_purchaseRepo.TryGetAll(out List<PurchaseResponse> response))
+            {
+                return NotFound();
+            }
+
+            return Ok(response);
+        }
+
+        // GET /purchase/{purchase_id}
+        // returns the purchase with purchase_id
+        [HttpGet("{id}")]
+        public ActionResult<PurchaseResponse> Get(int id)
+        {
+            if(!_purchaseRepo.TryGet(id, out PurchaseResponse response))
             {
                 return NotFound();
             }

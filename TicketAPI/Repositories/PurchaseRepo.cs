@@ -41,5 +41,26 @@ namespace TicketAPI.Repositories
             response = null;
             return false;
         }
+
+        public bool TryGet(int id, out PurchaseResponse response)
+        {
+            var target = _context.TicketPurchase.SingleOrDefault(tp => tp.PurchaseId == id);
+
+            if (target != null)
+            {
+                response = new PurchaseResponse
+                {
+                    PaymentAmount = target.PaymentAmount,
+                    ConfirmationCode = target.ConfirmationCode,
+                    PaymentMethod = target.PaymentMethod,
+                    PurchaseId = target.PurchaseId
+                };
+                return true;
+            }
+
+            // purchases not found
+            response = null;
+            return false;
+        }
     }
 }
