@@ -8,7 +8,7 @@ namespace TicketAPI.Data
 {
     public class DbInitializer
     {
-        public static void Initialize(ssdticketsContext context)
+        public static void Initialize(TicketsDBContext context)
         {
             context.Database.EnsureCreated();
 
