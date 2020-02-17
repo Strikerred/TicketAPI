@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace TicketAPI.Models
 {
-    public partial class ssdticketsContext : DbContext
+    public partial class TicketsDBContext : DbContext
     {
-        public ssdticketsContext()
+        public TicketsDBContext()
         {
         }
 
-        public ssdticketsContext(DbContextOptions<ssdticketsContext> options)
+        public TicketsDBContext(DbContextOptions<TicketsDBContext> options)
             : base(options)
         {
         }
@@ -23,6 +23,14 @@ namespace TicketAPI.Models
         public virtual DbSet<TicketPurchase> TicketPurchase { get; set; }
         public virtual DbSet<TicketPurchaseSeat> TicketPurchaseSeat { get; set; }
         public virtual DbSet<Venue> Venue { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Name=LocalTicketsDb");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -46,7 +54,7 @@ namespace TicketAPI.Models
                 entity.HasOne(d => d.VenueNameNavigation)
                     .WithMany(p => p.Event)
                     .HasForeignKey(d => d.VenueName)
-                    .HasConstraintName("FK__Event__venue_nam__5441852A");
+                    .HasConstraintName("FK__Event__venue_nam__4222D4EF");
             });
 
             modelBuilder.Entity<EventSeat>(entity =>
@@ -65,13 +73,13 @@ namespace TicketAPI.Models
                     .WithMany(p => p.EventSeat)
                     .HasForeignKey(d => d.EventId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EventSeat__event__5812160E");
+                    .HasConstraintName("FK__EventSeat__event__45F365D3");
 
                 entity.HasOne(d => d.Seat)
                     .WithMany(p => p.EventSeat)
                     .HasForeignKey(d => d.SeatId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__EventSeat__seat___571DF1D5");
+                    .HasConstraintName("FK__EventSeat__seat___44FF419A");
             });
 
             modelBuilder.Entity<Row>(entity =>
@@ -89,7 +97,7 @@ namespace TicketAPI.Models
                 entity.HasOne(d => d.Section)
                     .WithMany(p => p.Row)
                     .HasForeignKey(d => d.SectionId)
-                    .HasConstraintName("FK__Row__section_id__4E88ABD4");
+                    .HasConstraintName("FK__Row__section_id__3C69FB99");
             });
 
             modelBuilder.Entity<Seat>(entity =>
@@ -105,7 +113,7 @@ namespace TicketAPI.Models
                 entity.HasOne(d => d.Row)
                     .WithMany(p => p.Seat)
                     .HasForeignKey(d => d.RowId)
-                    .HasConstraintName("FK__Seat__row_id__5165187F");
+                    .HasConstraintName("FK__Seat__row_id__3F466844");
             });
 
             modelBuilder.Entity<Section>(entity =>
@@ -126,17 +134,15 @@ namespace TicketAPI.Models
                 entity.HasOne(d => d.VenueNameNavigation)
                     .WithMany(p => p.Section)
                     .HasForeignKey(d => d.VenueName)
-                    .HasConstraintName("FK__Section__venue_n__4BAC3F29");
+                    .HasConstraintName("FK__Section__venue_n__398D8EEE");
             });
 
             modelBuilder.Entity<TicketPurchase>(entity =>
             {
                 entity.HasKey(e => e.PurchaseId)
-                    .HasName("PK__TicketPu__87071CB96FD0BE6D");
+                    .HasName("PK__TicketPu__87071CB91DF8AAF1");
 
-                entity.Property(e => e.PurchaseId)
-                    .HasColumnName("purchase_id")
-                    .ValueGeneratedNever();
+                entity.Property(e => e.PurchaseId).HasColumnName("purchase_id");
 
                 entity.Property(e => e.ConfirmationCode)
                     .HasColumnName("confirmation_code")
@@ -157,7 +163,7 @@ namespace TicketAPI.Models
             modelBuilder.Entity<TicketPurchaseSeat>(entity =>
             {
                 entity.HasKey(e => new { e.EventSeatId, e.PurchaseId })
-                    .HasName("PK__TicketPu__B5CCA47E6755BEA0");
+                    .HasName("PK__TicketPu__B5CCA47EA36ECF2E");
 
                 entity.Property(e => e.EventSeatId).HasColumnName("event_seat_id");
 
@@ -171,19 +177,19 @@ namespace TicketAPI.Models
                     .WithMany(p => p.TicketPurchaseSeat)
                     .HasForeignKey(d => d.EventSeatId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__TicketPur__event__5CD6CB2B");
+                    .HasConstraintName("FK__TicketPur__event__4AB81AF0");
 
                 entity.HasOne(d => d.Purchase)
                     .WithMany(p => p.TicketPurchaseSeat)
                     .HasForeignKey(d => d.PurchaseId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__TicketPur__purch__5BE2A6F2");
+                    .HasConstraintName("FK__TicketPur__purch__49C3F6B7");
             });
 
             modelBuilder.Entity<Venue>(entity =>
             {
                 entity.HasKey(e => e.VenueName)
-                    .HasName("PK__Venue__3D6847F26649E734");
+                    .HasName("PK__Venue__3D6847F2B67E5A14");
 
                 entity.Property(e => e.VenueName)
                     .HasColumnName("venue_name")
