@@ -14,7 +14,12 @@ namespace TicketAPI.Repositories
         {
             _context = context;
         }
-        public List<Row> GetRows(long id)
+        public List<Row> GetRows()
+        {
+            return _context.Row.ToList();
+        }
+
+        public List<Row> GetRow(long id)
         {
             return _context.Row.Where(s => s.SectionId == id).ToList();
         }
