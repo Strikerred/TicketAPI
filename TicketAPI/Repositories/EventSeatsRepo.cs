@@ -14,5 +14,15 @@ namespace TicketAPI.Repositories
         {
             _context = context;
         }
+
+        public EventSeat Get(int id)
+        {
+            return _context.EventSeat.FirstOrDefault(t => t.EventSeatId == id);
+        }
+
+        public IEnumerable<EventSeat> GetAll(int id)
+        {
+            return _context.EventSeat.Where(t => t.EventId == id);
+        }
     }
 }

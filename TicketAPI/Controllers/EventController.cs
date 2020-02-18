@@ -9,7 +9,7 @@ using TicketAPI.Repositories;
 
 namespace TicketAPI.Controllers
 {
-    [Route("api/event")]
+    [Route("api/[controller]")]
     [ApiController]
     public class EventController : ControllerBase
     {

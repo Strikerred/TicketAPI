@@ -9,7 +9,7 @@ using TicketAPI.Repositories;
 
 namespace TicketAPI.Controllers
 {
-    [Route("api/venue")]
+    [Route("api/[controller]")]
     [ApiController]
     public class VenueController : ControllerBase
     {
@@ -29,7 +29,7 @@ namespace TicketAPI.Controllers
 
         // GET api/venue/5
         [HttpGet("{id}")]
-        public ActionResult<string> GetVenueByName(String name)
+        public IActionResult GetVenueByName(String name)
         {
             var item = repo.Get(name);
 
