@@ -22,16 +22,23 @@ namespace TicketAPI.Controllers
 
         // GET api/venue
         [HttpGet]
-        public ActionResult<IEnumerable<string>> GetVenues()
+        public IEnumerable<Venue> GetVenues()
         {
-            return new string[] { "value1", "value2" };
+            return repo.Get();
         }
 
         // GET api/venue/5
         [HttpGet("{id}")]
-        public ActionResult<string> GetVenueById(int id)
+        public ActionResult<string> GetVenueByName(String name)
         {
-            return "value";
+            var item = repo.Get(name);
+
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            return new ObjectResult(item);
         }
     }
 }

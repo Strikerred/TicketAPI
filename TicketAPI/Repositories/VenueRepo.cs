@@ -14,5 +14,16 @@ namespace TicketAPI.Repositories
         {
             _context = context;
         }
+
+        public IEnumerable<Venue> Get()
+        {
+            return _context.Venue.ToList();
+        }
+
+        public Venue Get(String name)
+        {
+            return _context.Venue.FirstOrDefault(t => t.VenueName == name);
+        }
+
     }
 }

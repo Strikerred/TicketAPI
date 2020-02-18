@@ -21,17 +21,21 @@ namespace TicketAPI.Controllers
         }
         // GET api/event
         [HttpGet]
-        public ActionResult<IEnumerable<string>> GetEvents()
+        public IEnumerable<Event> GetEvents()
         {
-            return new string[] { "value1", "value2" };
+            return repo.Get();
         }
 
         // GET api/event/5
         [HttpGet("{id}")]
-        public ActionResult<string> GetEventById(int id)
+        public IActionResult GetEventById(int id)
         {
-            return "value";
+            var item = repo.Get(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return new ObjectResult(item);
         }
-
     }
 }
