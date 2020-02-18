@@ -10,6 +10,7 @@ using TicketAPI.Repositories;
 
 namespace TicketAPI.Controllers
 {
+    [Produces("application/json")]
     [Route("api/event-seat")]
     [ApiController]
     public class EventSeatsController : ControllerBase
