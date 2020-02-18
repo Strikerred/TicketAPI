@@ -10,7 +10,7 @@ using TicketAPI.Repositories;
 namespace TicketAPI.Controllers
 {
     [Produces("application/json")]
-    [Route("api/section/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class RowController : Controller
     {
@@ -28,7 +28,7 @@ namespace TicketAPI.Controllers
         {
             var rows = new RowRepo(_context).GetRows();
 
-            if (rows == null || rows.Count == 0)
+            if (rows == null)
             {
                 return NotFound();
             }
@@ -43,12 +43,27 @@ namespace TicketAPI.Controllers
         {
             var row = new RowRepo(_context).GetRow(id);
 
-            if (row == null || row.Count == 0)
+            if (row == null)
             {
                 return NotFound();
             }
 
             return Ok(new ObjectResult(row));
+        }
+
+        [HttpGet("section/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetBySectionId(long id)
+        {
+            var rows = new RowRepo(_context).GetRowBySectionId(id);
+
+            if (rows == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new ObjectResult(rows));
         }
     }
 }

@@ -28,7 +28,7 @@ namespace TicketAPI.Controllers
         {
             var sections = new SectionRepo(_context).GetAll();
 
-            if (sections == null || sections.Count == 0)
+            if (sections == null)
             {
                 return NotFound();
             }
