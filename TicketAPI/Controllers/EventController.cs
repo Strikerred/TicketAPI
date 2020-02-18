@@ -21,9 +21,9 @@ namespace TicketAPI.Controllers
         }
         // GET api/event
         [HttpGet]
-        public IEnumerable<Event> GetEvents()
+        public ActionResult<IEnumerable<Event>> GetEvents()
         {
-            return repo.Get();
+            return Ok(repo.Get());
         }
 
         // GET api/event/5
@@ -35,7 +35,7 @@ namespace TicketAPI.Controllers
             {
                 return NotFound();
             }
-            return new ObjectResult(item);
+            return Ok(item);
         }
     }
 }

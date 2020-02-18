@@ -22,9 +22,9 @@ namespace TicketAPI.Controllers
 
         // GET api/venue
         [HttpGet]
-        public IEnumerable<Venue> GetVenues()
+        public ActionResult<IEnumerable<Venue>> GetVenues()
         {
-            return repo.Get();
+            return Ok(repo.Get());
         }
 
         // GET api/venue/5
@@ -38,7 +38,7 @@ namespace TicketAPI.Controllers
                 return NotFound();
             }
 
-            return new ObjectResult(item);
+            return Ok(item);
         }
     }
 }

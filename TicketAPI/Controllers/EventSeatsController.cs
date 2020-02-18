@@ -9,6 +9,7 @@ using TicketAPI.Repositories;
 
 namespace TicketAPI.Controllers
 {
+    [Route("api/event-seat")]
     [ApiController]
     public class EventSeatsController : ControllerBase
     {
@@ -20,8 +21,7 @@ namespace TicketAPI.Controllers
         }
 
         // GET api/event-seat/5
-        [Route("/api/event-seat/{id}")]
-        [HttpGet]
+        [HttpGet("{id}")]
         public IActionResult GetEventSeatById(int id)
         {
             var item = repo.Get(id);
@@ -31,7 +31,7 @@ namespace TicketAPI.Controllers
                 return NotFound();
             }
 
-            return new ObjectResult(item);
+            return Ok(item);
         }
 
         // GET api/event-seat/event/5
@@ -46,7 +46,7 @@ namespace TicketAPI.Controllers
                 return NotFound();
             }
 
-            return new ObjectResult(items);
+            return Ok(items);
         }
 
     }
