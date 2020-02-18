@@ -1,13 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TicketAPI.Interfaces;
 using TicketAPI.Models;
 
 namespace TicketAPI.Repositories
 {
-    public class EventRepo
+    public class EventRepo: IEventRepo
     {
         private ssdticketsContext _context;
 
@@ -16,14 +18,14 @@ namespace TicketAPI.Repositories
             _context = context;
         }
 
-        public IEnumerable<Event> Get()
+        public async Task<IEnumerable<Event>> Get()
         {
-            return _context.Event.ToList();
+            return await _context.Event.ToListAsync();
         }
 
-        public Event Get(int id)
+        public async Task<Event> Get(int id)
         {
-            return _context.Event.FirstOrDefault(t => t.EventId == id);
+            return await _context.Event.FirstOrDefaultAsync(t => t.EventId == id);
         }
 
     }

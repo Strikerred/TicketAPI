@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TicketAPI.Interfaces;
 using TicketAPI.Models;
 using TicketAPI.Repositories;
 
@@ -13,29 +14,29 @@ namespace TicketAPI.Controllers
     [ApiController]
     public class EventController : ControllerBase
     {
-        private readonly EventRepo repo;
+        private readonly EventRepo _repo;
 
         public EventController(ssdticketsContext context)
         {
-            repo = new EventRepo(context);
+            _repo = new EventRepo(context);
         }
         // GET api/event
         [HttpGet]
-        public ActionResult<IEnumerable<Event>> GetEvents()
+        public async Task<ActionResult<IEnumerable<Event>>> Get()
         {
-            return Ok(repo.Get());
+            return Ok(await _repo.Get());
         }
 
         // GET api/event/5
         [HttpGet("{id}")]
-        public IActionResult GetEventById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var item = repo.Get(id);
+            var item = _repo.Get(id);
             if (item == null)
             {
                 return NotFound();
             }
-            return Ok(item);
+            return Ok(await item);
         }
     }
 }

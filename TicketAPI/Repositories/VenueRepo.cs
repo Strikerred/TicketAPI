@@ -1,12 +1,14 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TicketAPI.Interfaces;
 using TicketAPI.Models;
 
 namespace TicketAPI.Repositories
 {
-    public class VenueRepo
+    public class VenueRepo : IVenueRepo
     {
         private ssdticketsContext _context;
 
@@ -15,14 +17,14 @@ namespace TicketAPI.Repositories
             _context = context;
         }
 
-        public IEnumerable<Venue> Get()
+        public async Task<IEnumerable<Venue>> Get()
         {
-            return _context.Venue.ToList();
+            return await _context.Venue.ToListAsync();
         }
 
-        public Venue Get(String name)
+        public async Task<Venue> Get(String name)
         {
-            return _context.Venue.FirstOrDefault(t => t.VenueName == name);
+            return await _context.Venue.FirstOrDefaultAsync(t => t.VenueName == name);
         }
 
     }

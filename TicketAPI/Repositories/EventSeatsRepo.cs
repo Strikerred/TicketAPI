@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,14 +16,14 @@ namespace TicketAPI.Repositories
             _context = context;
         }
 
-        public EventSeat Get(int id)
+        public async Task<EventSeat> Get(int id)
         {
-            return _context.EventSeat.FirstOrDefault(t => t.EventSeatId == id);
+            return await _context.EventSeat.FirstOrDefaultAsync(t => t.EventSeatId == id);
         }
 
-        public IEnumerable<EventSeat> GetAll(int id)
+        public async Task<IEnumerable<EventSeat>> GetAll(int id)
         {
-            return _context.EventSeat.Where(t => t.EventId == id);
+            return await _context.EventSeat.Where(t => t.EventId == id).ToListAsync();
         }
     }
 }
