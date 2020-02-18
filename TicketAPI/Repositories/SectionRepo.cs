@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TicketAPI.Models;
+using TicketAPI.ResponseModels;
 
 namespace TicketAPI.Repositories
 {
@@ -15,14 +16,30 @@ namespace TicketAPI.Repositories
             _context = context;
         }
 
-        public List<Section> GetAll()
+        public IEnumerable<SectionResponse> GetAll()
         {
-            return _context.Section.ToList();
+            IEnumerable<SectionResponse> sections =
+                _context.Section.Select(s => new SectionResponse() { 
+                    SectionId = s.SectionId,
+                    SectionName = s.SectionName,
+                    VenueName = s.VenueName
+                });
+
+            return sections;
         }        
 
-        public Section GetSection(long id)
+        public SectionResponse GetSection(long id)
         {
-            return _context.Section.Where(s => s.SectionId == id).FirstOrDefault();
+            Section targetSection = _context.Section.Where(s => s.SectionId == id).FirstOrDefault();
+
+            SectionResponse section = new SectionResponse()
+            {
+                SectionId = targetSection.SectionId,
+                SectionName = targetSection.SectionName,
+                VenueName = targetSection.VenueName
+            };
+
+            return section;
         }
     }
 }
