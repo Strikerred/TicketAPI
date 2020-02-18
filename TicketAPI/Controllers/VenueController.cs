@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TicketAPI.Models;
+using TicketAPI.Repositories;
 
 namespace TicketAPI.Controllers
 {
@@ -12,24 +13,23 @@ namespace TicketAPI.Controllers
     [ApiController]
     public class VenueController : ControllerBase
     {
-        private readonly ssdticketsContext _context;
+        private readonly VenueRepo repo;
 
         public VenueController(ssdticketsContext context)
         {
-            _context = context;
+            repo = new VenueRepo(context);
         }
-
 
         // GET api/venue
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<IEnumerable<string>> GetVenues()
         {
             return new string[] { "value1", "value2" };
         }
 
         // GET api/venue/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public ActionResult<string> GetVenueById(int id)
         {
             return "value";
         }
