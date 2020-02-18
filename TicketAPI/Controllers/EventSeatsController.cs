@@ -37,9 +37,16 @@ namespace TicketAPI.Controllers
         // GET api/event-seat/event/5
         [Route("/api/event-seat/event/{id}")]
         [HttpGet]
-        public IEnumerable<EventSeat> GetEventSeatsByEventId(int id)
+        public ActionResult<IEnumerable<EventSeat>> GetEventSeatsByEventId(int id)
         {
-            return repo.GetAll(id);
+            var items = repo.GetAll(id);
+
+            if (items == null)
+            {
+                return NotFound();
+            }
+
+            return new ObjectResult(items);
         }
 
     }
