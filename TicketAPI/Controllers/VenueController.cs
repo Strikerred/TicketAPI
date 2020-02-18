@@ -28,11 +28,11 @@ namespace TicketAPI.Controllers
             return Ok(await _repo.Get());
         }
 
-        // GET api/venue/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetByName(String name)
+        // GET api/venue/BCIT Stadium
+        [HttpGet("{venue_name}")]
+        public async Task<IActionResult> GetByName(string venue_name)
         {
-            var item = _repo.Get(name);
+            var item = _repo.Get(venue_name);
 
             if (item == null)
             {
