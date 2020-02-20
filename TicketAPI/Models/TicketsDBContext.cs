@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace TicketAPI.Models
 {
-    public partial class ssdticketsContext : DbContext
+    public partial class TicketsDBContext : DbContext
     {
-        public ssdticketsContext()
+        public TicketsDBContext()
         {
         }
 
-        public ssdticketsContext(DbContextOptions<ssdticketsContext> options)
+        public TicketsDBContext(DbContextOptions<TicketsDBContext> options)
             : base(options)
         {
         }
@@ -28,7 +28,7 @@ namespace TicketAPI.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Name=TicketsDbLocal");
+                optionsBuilder.UseSqlServer("Name=LocalTicketsDb");
             }
         }
 
@@ -140,7 +140,7 @@ namespace TicketAPI.Models
             modelBuilder.Entity<TicketPurchase>(entity =>
             {
                 entity.HasKey(e => e.PurchaseId)
-                    .HasName("PK__TicketPu__87071CB9A17858AE");
+                    .HasName("PK__TicketPu__87071CB91DF8AAF1");
 
                 entity.Property(e => e.PurchaseId).HasColumnName("purchase_id");
 
@@ -163,7 +163,7 @@ namespace TicketAPI.Models
             modelBuilder.Entity<TicketPurchaseSeat>(entity =>
             {
                 entity.HasKey(e => new { e.EventSeatId, e.PurchaseId })
-                    .HasName("PK__TicketPu__B5CCA47E3E6E7928");
+                    .HasName("PK__TicketPu__B5CCA47EA36ECF2E");
 
                 entity.Property(e => e.EventSeatId).HasColumnName("event_seat_id");
 
@@ -189,7 +189,7 @@ namespace TicketAPI.Models
             modelBuilder.Entity<Venue>(entity =>
             {
                 entity.HasKey(e => e.VenueName)
-                    .HasName("PK__Venue__3D6847F2185359EE");
+                    .HasName("PK__Venue__3D6847F2B67E5A14");
 
                 entity.Property(e => e.VenueName)
                     .HasColumnName("venue_name")
