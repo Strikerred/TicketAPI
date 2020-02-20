@@ -65,6 +65,7 @@ namespace TicketAPI.Controllers
         ///         "venueName": "BCIT Stadium"
         ///     }
         /// </remarks>
+        /// <param name="id"></param>
         /// <returns>Specific section</returns>
         /// <response code="200">Returns a section</response>
         /// <response code="404">Section were not found</response>

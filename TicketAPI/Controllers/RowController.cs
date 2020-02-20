@@ -21,20 +21,6 @@ namespace TicketAPI.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetAll()
-        {
-            var rows = new RowRepo(_context).GetRows();
-
-            if (rows == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(new ObjectResult(rows));
-        }
 
         /// <summary>
         /// Gets all rows
@@ -52,6 +38,38 @@ namespace TicketAPI.Controllers
         /// <returns>All rows</returns>
         /// <response code="200">Returns all rows</response>
         /// <response code="404">Rows were not found</response>
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetAll()
+        {
+            var rows = new RowRepo(_context).GetRows();
+
+            if (rows == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new ObjectResult(rows));
+        }
+
+        /// <summary>
+        /// Gets all rows by rows
+        /// </summary> 
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /row/section/1
+        ///     {
+        ///         "rowId": 1,
+        ///         "rowName": "Row 1",
+        ///         "sectionId": 1
+        ///     }
+        /// </remarks>
+        /// <param name="id"></param>        
+        /// <returns>All rows by section</returns>
+        /// <response code="200">Returns all rows by section</response>
+        /// <response code="404">Rows were not found</response>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -68,21 +86,21 @@ namespace TicketAPI.Controllers
         }
 
         /// <summary>
-        /// Gets all rows by section
+        /// Gets an specific row
         /// </summary> 
         /// <remarks>
         /// Sample request:
         ///
-        ///     GET /row/section/1
+        ///     GET /row/1
         ///     {
         ///         "rowId": 1,
         ///         "rowName": "Row 1",
         ///         "sectionId": 1
         ///     }
         /// </remarks>
-        /// <returns>All rows by section</returns>
-        /// <response code="200">Returns all rows by section</response>
-        /// <response code="404">Rows were not found</response>
+        /// <returns>A an specific row </returns>
+        /// <response code="200">Returns an specific row</response>
+        /// <response code="404">Row were not found</response>
         [HttpGet("section/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
