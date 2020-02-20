@@ -13,6 +13,7 @@ namespace TicketAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Produces("application/json")]
     public class PurchaseController : ControllerBase
     {
         private PurchaseRepo _purchaseRepo;
@@ -24,7 +25,13 @@ namespace TicketAPI.Controllers
 
         // GET /purchase
         // returns all purchases made so far
+
+        /// <summary>
+        /// Returns an array of all purchases made so far
+        /// </summary>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<List<PurchaseResponse>> GetAll()
         {
             if(!_purchaseRepo.TryGetAll(out List<PurchaseResponse> response))
@@ -37,7 +44,14 @@ namespace TicketAPI.Controllers
 
         // GET /purchase/{purchase_id}
         // returns the purchase with purchase_id
+
+        /// <summary>
+        /// Returns the purchase with id: purchase_id
+        /// </summary>
+        /// <param name="id">The id of the desired purchase record</param>
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<PurchaseResponse> Get(int id)
         {
             if(!_purchaseRepo.TryGet(id, out PurchaseResponse response))
@@ -50,7 +64,15 @@ namespace TicketAPI.Controllers
 
         // POST /purchase
         // register a purchase
+
+        /// <summary>
+        /// Make a ticket purchase by specifying the desired event_seat_ids in the request body.
+        /// </summary>
+        /// <param name="purchase"></param>
+        /// <returns>The created purchase record is returned if successful. Otherwise, an error message is produced if an event_seat_id does not exist or is already bought.</returns>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async  Task<ActionResult<PurchaseResponse>> Post([FromBody] PurchaseRequest purchase)
         {
             var result = await _purchaseRepo.TryAddPurchase(purchase.Seats, purchase.PaymentMethod);
