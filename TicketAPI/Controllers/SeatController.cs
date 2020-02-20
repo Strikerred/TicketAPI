@@ -36,6 +36,23 @@ namespace TicketAPI.Controllers
             return Ok(new ObjectResult(seats));
         }
 
+        /// <summary>
+        /// Gets all seats
+        /// </summary> 
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /seat
+        ///     {
+        ///         "seatId": 1,
+        ///         "price": 12.5000,
+        ///         "rowId": 1,
+        ///         "sectionName": "Section 1"
+        ///     }
+        /// </remarks>
+        /// <returns>All seats</returns>
+        /// <response code="200">Returns all seat</response>
+        /// <response code="404">Seats were not found</response>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -51,6 +68,23 @@ namespace TicketAPI.Controllers
             return Ok(new ObjectResult(seat));
         }
 
+        /// <summary>
+        /// Gets all seats by row
+        /// </summary> 
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /seat/row/1
+        ///     {
+        ///         "seatId": 1,
+        ///         "price": 12.5000,
+        ///         "rowId": 1,
+        ///         "sectionName": "Section 1"
+        ///     }
+        /// </remarks>
+        /// <returns>All seats by row</returns>
+        /// <response code="200">Returns all seats by row</response>
+        /// <response code="404">Seats were not found</response>
         [HttpGet("row/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

@@ -36,6 +36,22 @@ namespace TicketAPI.Controllers
             return Ok(new ObjectResult(rows));
         }
 
+        /// <summary>
+        /// Gets all rows
+        /// </summary> 
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /row
+        ///     {
+        ///         "rowId": 1,
+        ///         "rowName": "Row 1",
+        ///         "sectionId": 1
+        ///     }
+        /// </remarks>
+        /// <returns>All rows</returns>
+        /// <response code="200">Returns all rows</response>
+        /// <response code="404">Rows were not found</response>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -51,6 +67,22 @@ namespace TicketAPI.Controllers
             return Ok(new ObjectResult(row));
         }
 
+        /// <summary>
+        /// Gets all rows by section
+        /// </summary> 
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /row/section/1
+        ///     {
+        ///         "rowId": 1,
+        ///         "rowName": "Row 1",
+        ///         "sectionId": 1
+        ///     }
+        /// </remarks>
+        /// <returns>All rows by section</returns>
+        /// <response code="200">Returns all rows by section</response>
+        /// <response code="404">Rows were not found</response>
         [HttpGet("section/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

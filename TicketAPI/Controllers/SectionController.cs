@@ -19,8 +19,24 @@ namespace TicketAPI.Controllers
         public SectionController(TicketsDBContext context)
         {
             _context = context;
-        }        
+        }
 
+        /// <summary>
+        /// Gets all sections
+        /// </summary> 
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /section
+        ///     {
+        ///         "sectionId": 1,
+        ///         "sectionName": "Section 1",
+        ///         "venueName": "BCIT Stadium"
+        ///     }
+        /// </remarks>
+        /// <returns>All sections</returns>
+        /// <response code="200">Returns all sections</response>
+        /// <response code="404">Sections were not found</response>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -36,6 +52,22 @@ namespace TicketAPI.Controllers
             return Ok(new ObjectResult(sections));
         }
 
+        /// <summary>
+        /// Gets an specific section
+        /// </summary> 
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /section/1
+        ///     {
+        ///         "sectionId": 1,
+        ///         "sectionName": "Section 1",
+        ///         "venueName": "BCIT Stadium"
+        ///     }
+        /// </remarks>
+        /// <returns>Specific section</returns>
+        /// <response code="200">Returns a section</response>
+        /// <response code="404">Section were not found</response>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
