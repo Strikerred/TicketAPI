@@ -43,10 +43,10 @@ namespace TicketAPI.Controllers
         }
 
         // GET /purchase/{purchase_id}
-        // returns the purchase with purchase_id
+        // returns the purchase with id
 
         /// <summary>
-        /// Returns the purchase with id: purchase_id
+        /// Returns the purchase with id
         /// </summary>
         /// <param name="id">The id of the desired purchase record</param>
         [HttpGet("{id}")]

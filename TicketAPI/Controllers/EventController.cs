@@ -44,7 +44,7 @@ namespace TicketAPI.Controllers
         ///
         ///     GET /event/{id}
         /// </remarks> 
-        /// <param name="eventId"></param>
+        /// <param name="id"></param>
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]

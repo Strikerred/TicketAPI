@@ -9,9 +9,9 @@ namespace TicketAPI.Repositories
 {
     public class SeatPurchaseRepo
     {
-        private readonly TicketsDBContext _context;
+        private readonly ssdticketsContext _context;
 
-        public SeatPurchaseRepo(TicketsDBContext context)
+        public SeatPurchaseRepo(ssdticketsContext context)
         {
             _context = context;
         }

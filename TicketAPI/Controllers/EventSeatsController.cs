@@ -26,7 +26,7 @@ namespace TicketAPI.Controllers
         /// <summary>
         /// Return an event seat with {id}
         /// </summary>
-        /// <param name="eventId"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]

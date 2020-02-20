@@ -14,9 +14,9 @@ namespace TicketAPI.Controllers
     [ApiController]
     public class RowController : Controller
     {
-        private readonly TicketsDBContext _context;
+        private readonly ssdticketsContext _context;
 
-        public RowController(TicketsDBContext context)
+        public RowController(ssdticketsContext context)
         {
             _context = context;
         }
@@ -54,7 +54,7 @@ namespace TicketAPI.Controllers
         }
 
         /// <summary>
-        /// Gets all rows by rows
+        /// Gets all rows
         /// </summary> 
         /// <remarks>
         /// Sample request:

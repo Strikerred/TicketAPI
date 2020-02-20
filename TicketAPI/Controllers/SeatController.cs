@@ -14,9 +14,9 @@ namespace TicketAPI.Controllers
     [ApiController]
     public class SeatController : Controller
     {
-        private readonly TicketsDBContext _context;
+        private readonly ssdticketsContext _context;
 
-        public SeatController(TicketsDBContext context)
+        public SeatController(ssdticketsContext context)
         {
             _context = context;
         }

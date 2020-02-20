@@ -9,9 +9,9 @@ namespace TicketAPI.Repositories
 {
     public class SectionRepo
     {
-        private readonly TicketsDBContext _context;
+        private readonly ssdticketsContext _context;
 
-        public SectionRepo(TicketsDBContext context)
+        public SectionRepo(ssdticketsContext context)
         {
             _context = context;
         }

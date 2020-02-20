@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace TicketAPI.Models
 {
-    public partial class TicketsDBContext : DbContext
+    public partial class ssdticketsContext : DbContext
     {
-        public TicketsDBContext()
+        public ssdticketsContext()
         {
         }
 
-        public TicketsDBContext(DbContextOptions<TicketsDBContext> options)
+        public ssdticketsContext(DbContextOptions<ssdticketsContext> options)
             : base(options)
         {
         }

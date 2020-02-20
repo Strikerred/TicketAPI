@@ -24,7 +24,7 @@ namespace TicketAPI
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var context = services.GetRequiredService<TicketsDBContext>();
+                    var context = services.GetRequiredService<ssdticketsContext>();
                     DbInitializer.Initialize(context);
                 }
                 catch (Exception ex)
