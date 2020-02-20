@@ -21,15 +21,34 @@ namespace TicketAPI.Controllers
         {
             _repo = new EventRepo(context);
         }
-        // GET api/event
+
+        /// <summary>
+        /// Get event list.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /event
+        /// </remarks> 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Event>>> Get()
         {
             return Ok(await _repo.Get());
         }
 
-        // GET api/event/5
+        /// <summary>
+        /// Get an event by eventId
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /event/{id}
+        /// </remarks> 
+        /// <param name="eventId"></param>
+
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetById(int id)
         {
             var item = _repo.Get(id);

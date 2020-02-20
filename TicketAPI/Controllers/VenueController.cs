@@ -22,15 +22,33 @@ namespace TicketAPI.Controllers
             _repo = new VenueRepo(context);
         }
 
-        // GET api/venue
+        /// <summary>
+        /// Get venue list
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /venue
+        /// </remarks> 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<Venue>>> Get()
         {
             return Ok(await _repo.Get());
         }
 
-        // GET api/venue/BCIT Stadium
+        /// <summary>
+        /// Get an venue by venue_name
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /venue/{venue_name}
+        /// </remarks> 
+        /// <param name="venue_name"></param>
         [HttpGet("{venue_name}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetByName(string venue_name)
         {
             var item = _repo.Get(venue_name);
