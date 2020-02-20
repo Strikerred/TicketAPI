@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using TicketAPI.Models;
+using TicketAPI.Repositories;
 
 namespace TicketAPI
 {
@@ -33,12 +34,19 @@ namespace TicketAPI
             services.AddDbContext<ssdticketsContext>(options =>
                 options.UseSqlServer(Configuration["ConnectionStrings:TicketsDbLocal"]));
 
-            services.AddSwaggerGen(c => {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ticketing API", Version = "v1" });
+            services.AddTransient<EventSeatRepo>();
+            services.AddTransient<PurchaseRepo>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ticket API", Version = "v1" });
+                // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
+
             });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -55,15 +63,13 @@ namespace TicketAPI
                 app.UseHsts();
             }
 
+            app.UseHttpsRedirection();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ticketing API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ToDo API V1");
                 c.RoutePrefix = string.Empty;
             });
-
-
-            app.UseHttpsRedirection();
             app.UseMvc();
         }
     }

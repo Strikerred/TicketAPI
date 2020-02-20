@@ -4,71 +4,62 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using TicketAPI.Interfaces;
-using TicketAPI.Models;
 using TicketAPI.Repositories;
+using TicketAPI.ResponseModels;
 
 namespace TicketAPI.Controllers
 {
-    [Produces("application/json")]
     [Route("api/event-seat")]
     [ApiController]
+    [Produces("application/json")]
     public class EventSeatsController : ControllerBase
     {
-        public readonly EventSeatsRepo _repo;
-        public EventSeatsController(ssdticketsContext context)
+        private EventSeatRepo _eventSeatRepo;
+
+        public EventSeatsController(EventSeatRepo eventSeatRepo)
         {
-            _repo = new EventSeatsRepo(context);
+            _eventSeatRepo = eventSeatRepo;
         }
 
+        // GET /event-seat/{id}
+
         /// <summary>
-        /// Get an eventseat by eventseat Id
+        /// Return an event seat with {id}
         /// </summary>
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     GET /event-seat/{id}
-        /// </remarks> 
-        /// <param name="eventSeatId"></param>
+        /// <param name="eventId"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetById(int id)
+        public ActionResult<EventSeatResponse> Get(int id)
         {
-            var item = _repo.Get(id);
-
-            if (item == null)
+            if(!_eventSeatRepo.TryGet(id, out EventSeatResponse response))
             {
                 return NotFound();
             }
 
-            return Ok(await item);
+            return Ok(response);
         }
+
+        // GET /event-seat/event/{event_id}
+        // Returns an array of all the event seats for an event with { event_id }
 
         /// <summary>
-        /// Get eventseat list by event Id
+        /// Returns an array of all the event seats for an event with {event_id}
         /// </summary>
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     GET /event-seat/event/{id}
-        /// </remarks> 
         /// <param name="eventId"></param>
-        [Route("/api/event-seat/event/{id}")]
-        [HttpGet]
+        /// <returns></returns>
+        [HttpGet("event/{eventId:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<IEnumerable<EventSeat>>> GetByEventId(int id)
+        public ActionResult<List<EventSeatResponse>> GetByEvent(int eventId)
         {
-            var items = _repo.GetAll(id);
-
-            if (items == null)
+            if(!_eventSeatRepo.TryGetByEvent(eventId, out List<EventSeatResponse> response))
             {
                 return NotFound();
             }
 
-            return Ok(await items);
+            return Ok(response);
         }
-
     }
 }

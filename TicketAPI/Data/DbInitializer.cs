@@ -109,7 +109,7 @@ namespace TicketAPI.Data
 
             // Ticket Purchases
             // Each event has the first row of section 1 sold out
-            // Each event also has seats 1 and 2 sold in the second row
+            // Each event also has seats 1 and 2 sold in the second row of section 1
             foreach (Event e in events)
             {
                 // Purchase first row in a single transaction
